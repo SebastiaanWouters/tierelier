@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { dropzone } from "./dnd";
+  import { dropzone } from "../dnd";
 
   export let tier: string;
   export let color: string;

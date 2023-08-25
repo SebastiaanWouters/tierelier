@@ -1,6 +1,6 @@
 <script lang="ts">
   import Row from "../lib/components/Row.svelte";
-  import { draggable } from "../lib/components/dnd";
+  import { draggable } from "../lib/dnd";
 
   let draggedItem: HTMLElement | null | EventTarget = null;
 </script>
