@@ -30,17 +30,17 @@ This project is a highly interactive and customizable tier list maker built usin
 
 Clone the repository and install dependencies.
 
-\`\`\`bash
+```bash
 git clone https://github.com/SebastiaanWouters/tierelier.git
 cd tierelier
 npm install
-\`\`\`
+```
 
 Run the project locally.
 
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 Navigate to `http://localhost:5173` in your browser.
 
