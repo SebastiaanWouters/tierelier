@@ -1,21 +1,69 @@
 <script lang="ts">
-  import { dropzone } from "../dnd";
+  import { onMount } from "svelte";
+  import { dragged, dropTargetId, dropzone } from "../dnd";
+  import EnergyImage from "./EnergyImage.svelte";
+  import { persisted } from "svelte-local-storage-store";
+  import { flip } from "svelte/animate";
+  import { fade } from "svelte/transition";
+  import { crossfade } from "svelte/transition";
+  import { writable } from "svelte/store";
+  const [send, receive] = crossfade({});
 
   export let tier: string;
   export let color: string;
-  export let data: string[] = [];
+
+  const components = persisted<{ id: string; src: string }[]>(tier, []);
+
+  // Initialize the dropzone
+
+  onMount(() => {});
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div use:dropzone class="row" style="--tier: '{tier}'; --color: {color}">
-  {#each data as item}
-    <div>{item}</div>
+<div
+  id="dropzone"
+  on:dragover={(e) => {
+    e.preventDefault();
+  }}
+  on:drop={() => {
+    if ($dragged !== null) {
+      const id = $dragged.id;
+      const src = $dragged.src;
+      console.log("drop");
+      $dropTargetId = "dropzone";
+      $components.push({ id, src });
+      $components = $components;
+    }
+  }}
+  class="row"
+  style="--tier: '{tier}'; --color: {color}"
+>
+  {#each $components as item (item.id)}
+    <div
+      class="imgContainer"
+      animate:flip={{ duration: 200 }}
+      in:receive={{ key: item.id }}
+      out:send={{ key: item.id }}
+      draggable="true"
+      on:dragstart={() => {
+        $dropTargetId = "";
+        $dragged = { id: item.id, src: item.src };
+      }}
+      on:dragend={() => {
+        if ($dropTargetId === "dropzone") {
+          components.update((value) => {
+            return value.filter((item) => item.id !== $dragged?.id);
+          });
+        }
+      }}
+    >
+      <EnergyImage src={item.src} id={item.id} />
+    </div>
   {/each}
 </div>
 
 <style lang="scss">
   .row {
-    //padding-left: calc(var(--size-fluid-6) + 1rem);
     position: relative;
     display: flex;
     align-items: center;
@@ -26,9 +74,13 @@
       height: var(--size-fluid-7);
     }
     width: 100%;
-    padding-block: var(--size-fluid-1);
     overflow: scroll;
     padding: 0;
+
+    .imgContainer {
+      height: 100%;
+      padding: 0.6rem var(--size-fluid-1);
+    }
   }
 
   .row::before {
