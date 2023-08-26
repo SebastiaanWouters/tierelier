@@ -15,6 +15,7 @@
     { id: "golden", src: "/public/golden.png" },
     { id: "rodeo", src: "/public/rodeo.png" },
     { id: "prime", src: "/public/prime.png" },
+    { id: "redbull", src: "/public/redbull.png" },
   ]);
 </script>
 
