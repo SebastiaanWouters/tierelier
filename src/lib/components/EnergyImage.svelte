@@ -3,9 +3,6 @@
   import { crossfade } from "svelte/transition";
   const [send, receive] = crossfade({});
 
-  import { dragged } from "../dnd";
-  import { flip } from "svelte/animate";
-
   export let src: string;
   export let id: string;
 </script>
@@ -14,8 +11,8 @@
 
 <style>
   img {
-    width: auto;
-    aspect-ratio: auto;
-    height: 100%;
+    display: block;
+    align-self: stretch;
+    max-block-size: 14vh;
   }
 </style>

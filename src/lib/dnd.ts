@@ -1,7 +1,8 @@
 import { writable } from "svelte/store";
 
 export const dragged = writable<{ src: string, id: string} | null>(null);
-export const dropTargetId = writable<string>("");
+export const dropTarget = writable<string>("");
+export const dropSame = writable<boolean>(false);
 
 dragged.subscribe((value) => {
 	console.log(value)

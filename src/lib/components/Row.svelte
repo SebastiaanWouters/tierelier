@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { dragged, dropTargetId, dropzone } from "../dnd";
+  import { dragged, dropSame, dropTarget, dropzone } from "../dnd";
   import EnergyImage from "./EnergyImage.svelte";
   import { persisted } from "svelte-local-storage-store";
   import { flip } from "svelte/animate";
@@ -16,7 +16,20 @@
 
   // Initialize the dropzone
 
-  onMount(() => {});
+  const removeFirstById = (idToRemove: string) => {
+    components.update((list) => {
+      const indexToRemove = list.findIndex((item) => item.id === idToRemove);
+
+      if (indexToRemove !== -1) {
+        $dropSame = true;
+        list.splice(indexToRemove, 1);
+      } else {
+        $dropSame = false;
+      }
+
+      return [...list];
+    });
+  };
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -30,7 +43,8 @@
       const id = $dragged.id;
       const src = $dragged.src;
       console.log("drop");
-      $dropTargetId = "dropzone";
+      $dropTarget = "dropzone";
+      removeFirstById($dragged.id);
       $components.push({ id, src });
       $components = $components;
     }
@@ -40,20 +54,20 @@
 >
   {#each $components as item (item.id)}
     <div
-      class="imgContainer"
+      class="imgContainer grab"
       animate:flip={{ duration: 200 }}
       in:receive={{ key: item.id }}
       out:send={{ key: item.id }}
       draggable="true"
       on:dragstart={() => {
-        $dropTargetId = "";
+        $dropTarget = "";
         $dragged = { id: item.id, src: item.src };
       }}
       on:dragend={() => {
-        if ($dropTargetId === "dropzone") {
-          components.update((value) => {
-            return value.filter((item) => item.id !== $dragged?.id);
-          });
+        if ($dropTarget === "dropzone") {
+          if ($dragged && !$dropSame) {
+            removeFirstById($dragged.id);
+          }
         }
       }}
     >
@@ -64,22 +78,23 @@
 
 <style lang="scss">
   .row {
+    flex: 1;
     position: relative;
     display: flex;
     align-items: center;
     gap: var(--size-fluid-2);
     border: thin solid var(--surface-3);
-    height: var(--size-fluid-6);
-    @media only screen and (max-width: 1260px) {
-      height: var(--size-fluid-7);
-    }
+    height: 100%;
     width: 100%;
-    overflow: scroll;
+    overflow-x: auto;
     padding: 0;
 
     .imgContainer {
-      height: 100%;
-      padding: 0.6rem var(--size-fluid-1);
+      padding: 0.1rem var(--size-fluid-1);
+      display: flex;
+
+      width: fit-content;
+      min-width: 120px;
     }
   }
 
@@ -93,11 +108,11 @@
     text-transform: uppercase;
     content: var(--tier);
     position: sticky;
+    height: 100%;
     top: 0;
     bottom: 0;
     left: 0;
     aspect-ratio: var(--ratio-square);
-    height: 100%;
     background: var(--color);
   }
 </style>

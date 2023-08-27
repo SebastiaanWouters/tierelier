@@ -2,7 +2,13 @@
   import { flip } from "svelte/animate";
   import EnergyImage from "../lib/components/EnergyImage.svelte";
   import Row from "../lib/components/Row.svelte";
-  import { draggable, dragged, dropTargetId, dropzone } from "../lib/dnd";
+  import {
+    draggable,
+    dragged,
+    dropSame,
+    dropTarget,
+    dropzone,
+  } from "../lib/dnd";
   import { crossfade, fade } from "svelte/transition";
   import { persisted } from "svelte-local-storage-store";
   const [send, receive] = crossfade({});
@@ -16,18 +22,39 @@
     { id: "rodeo", src: "/public/rodeo.png" },
     { id: "prime", src: "/public/prime.png" },
     { id: "redbull", src: "/public/redbull.png" },
+    { id: "psychik", src: "/public/psychik.png" },
   ]);
+
+  $: counter = 7 - $components.length;
+
+  const removeFirstById = (idToRemove: string) => {
+    components.update((list) => {
+      const indexToRemove = list.findIndex((item) => item.id === idToRemove);
+
+      if (indexToRemove !== -1) {
+        $dropSame = true;
+        list.splice(indexToRemove, 1);
+      } else {
+        $dropSame = false;
+      }
+
+      return [...list];
+    });
+  };
 </script>
 
 <div class="grid">
   <div class="container">
-    <h1>Energy Drink Tierlist</h1>
+    <div class="top">
+      <h2>Energy Drink Tierlist</h2>
+      <h2>Gedronken: {counter}</h2>
+    </div>
+
     <div class="table">
       <Row tier="Goat" color="#bf616a" />
       <Row tier="a" color="#d08770" />
       <Row tier="b" color="#ebcb8b" />
       <Row tier="c" color="#a3be8c" />
-      <Row tier="Lenka M." color="#b48ead" />
       <Row tier="Glenn Leys" color="#7b5804" />
     </div>
   </div>
@@ -40,8 +67,9 @@
       if ($dragged !== null) {
         const id = $dragged.id;
         const src = $dragged.src;
-        $dropTargetId = "dropzone";
+        $dropTarget = "dropzone";
         console.log("drop");
+        removeFirstById(id);
         $components.push({ id, src });
         $components = $components;
       }
@@ -51,18 +79,18 @@
     {#each $components as item (item.id)}
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div
-        class="imgWrapper"
+        class="imgWrapper grab"
         draggable="true"
         on:dragstart={() => {
-          $dropTargetId = "";
+          $dropTarget = "";
           $dragged = { id: item.id, src: item.src };
         }}
         on:dragend={(e) => {
-          console.log(e.target);
-          if ($dropTargetId === "dropzone") {
-            $components = $components.filter(
-              (comp) => comp.id !== $dragged?.id
-            );
+          console.log("dragend");
+          if ($dropTarget === "dropzone") {
+            if ($dragged && !$dropSame) {
+              removeFirstById($dragged.id);
+            }
           }
         }}
         animate:flip={{ duration: 200 }}
@@ -79,8 +107,10 @@
   .grid {
     display: grid;
     grid-template-columns: 7fr 2fr;
+    height: 100vh;
   }
   .table {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     gap: var(--size-fluid-1);
@@ -89,20 +119,24 @@
     display: flex;
     flex-direction: column;
     gap: var(--size-fluid-2);
-    height: 100vh;
+    height: 100%;
     padding: var(--size-fluid-1);
 
     > h1 {
       font-size: var(--size-fluid-4);
     }
   }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+  }
   .imgWrapper {
-    max-height: 19vmin;
     display: flex;
     justify-content: center;
   }
   .column {
-    height: 100vh;
+    height: 100%;
     width: 100%;
     padding: var(--size-fluid-5) var(--size-fluid-2);
     justify-items: center;
