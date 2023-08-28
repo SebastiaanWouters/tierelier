@@ -16,20 +16,20 @@
   let draggedItem: HTMLElement | null | EventTarget = null;
 
   const components = persisted<{ src: string; id: string }[]>("remaining", [
-    { id: "monster", src: "/public/monster.png" },
-    { id: "nalu", src: "/public/nalu.png" },
-    { id: "golden", src: "/public/golden.png" },
-    { id: "rodeo", src: "/public/rodeo.png" },
-    { id: "prime", src: "/public/prime.png" },
-    { id: "redbull", src: "/public/redbull.png" },
-    { id: "psychik", src: "/public/psychik.png" },
-    { id: "nalu_orange", src: "/public/nalu_orange.png" },
-    { id: "monster_white", src: "/public/monster_white.png" },
-    { id: "monster_pipeline", src: "/public/monster_pipeline.png" },
-    { id: "redbull_white", src: "/public/redbull_white.png" },
-    { id: "redbull_white_jpg", src: "/public/redbull_white_jpg.jpg" },
-    { id: "redbull_summer_jpg", src: "/public/redbull_summer_jpg.jpg" },
-    { id: "redbull_red_jpg", src: "/public/redbull_red_jpg.jpg" },
+    { id: "monster", src: "/monster.png" },
+    { id: "nalu", src: "/nalu.png" },
+    { id: "golden", src: "/golden.png" },
+    { id: "rodeo", src: "/rodeo.png" },
+    { id: "prime", src: "/prime.png" },
+    { id: "redbull", src: "/redbull.png" },
+    { id: "psychik", src: "/psychik.png" },
+    { id: "nalu_orange", src: "/nalu_orange.png" },
+    { id: "monster_white", src: "/monster_white.png" },
+    { id: "monster_pipeline", src: "/monster_pipeline.png" },
+    { id: "redbull_white", src: "/redbull_white.png" },
+    { id: "redbull_white_jpg", src: "/redbull_white_jpg.jpg" },
+    { id: "redbull_summer_jpg", src: "/redbull_summer_jpg.jpg" },
+    { id: "redbull_red_jpg", src: "/redbull_red_jpg.jpg" },
   ]);
 
   $: counter = 14 - $components.length;
