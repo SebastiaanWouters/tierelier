@@ -23,9 +23,16 @@
     { id: "prime", src: "/public/prime.png" },
     { id: "redbull", src: "/public/redbull.png" },
     { id: "psychik", src: "/public/psychik.png" },
+    { id: "nalu_orange", src: "/public/nalu_orange.png" },
+    { id: "monster_white", src: "/public/monster_white.png" },
+    { id: "monster_pipeline", src: "/public/monster_pipeline.png" },
+    { id: "redbull_white", src: "/public/redbull_white.png" },
+    { id: "redbull_white_jpg", src: "/public/redbull_white_jpg.jpg" },
+    { id: "redbull_summer_jpg", src: "/public/redbull_summer_jpg.jpg" },
+    { id: "redbull_red_jpg", src: "/public/redbull_red_jpg.jpg" },
   ]);
 
-  $: counter = 7 - $components.length;
+  $: counter = 14 - $components.length;
 
   const removeFirstById = (idToRemove: string) => {
     components.update((list) => {
@@ -46,7 +53,7 @@
 <div class="grid">
   <div class="container">
     <div class="top">
-      <h2>Energy Drink Tierlist</h2>
+      <h2 class="lg-only">Energy Drink Tierlist</h2>
       <h2>Gedronken: {counter}</h2>
     </div>
 
@@ -106,8 +113,10 @@
 <style lang="scss">
   .grid {
     display: grid;
-    grid-template-columns: 7fr 2fr;
+    grid-template-columns: minmax(0, 7fr) min(2fr);
     height: 100vh;
+    max-width: 100vw;
+    width: 100vw;
   }
   .table {
     flex-grow: 1;
@@ -134,25 +143,27 @@
   .imgWrapper {
     display: flex;
     justify-content: center;
+    flex-shrink: 0;
   }
   .column {
+    flex-shrink: 0;
     height: 100%;
     width: 100%;
     padding: var(--size-fluid-5) var(--size-fluid-2);
     justify-items: center;
     align-content: start;
-    overflow: auto;
+    overflow-y: auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     @media only screen and (max-width: 1600px) {
       grid-template-columns: 1fr 1fr;
     }
-    @media only screen and (max-width: 800px) {
+    @media only screen and (max-width: 1200px) {
       grid-template-columns: 1fr;
     }
 
     column-gap: var(--size-fluid-1);
-    row-gap: var(--size-fluid-3);
+    row-gap: var(--size-fluid-2);
     > img {
       width: auto;
       aspect-ratio: auto;
@@ -160,7 +171,15 @@
       padding: var(--size-fluid-1);
     }
   }
-  h1 {
+  h2 {
     color: var(--text-1);
+    @media only screen and (max-width: 800px) {
+      font-size: var(--size-7);
+    }
+  }
+  .lg-only {
+    @media only screen and (max-width: 1000px) {
+      display: none;
+    }
   }
 </style>

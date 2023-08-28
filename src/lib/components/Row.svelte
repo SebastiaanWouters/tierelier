@@ -16,6 +16,32 @@
 
   // Initialize the dropzone
 
+  function handleDragStart(item: { id: string; src: string }) {
+    $dropTarget = "";
+    $dragged = { id: item.id, src: item.src };
+  }
+
+  function handleDragEnd() {
+    if ($dropTarget === "dropzone") {
+      if ($dragged && !$dropSame) {
+        removeFirstById($dragged.id);
+      }
+    }
+  }
+
+  function handleDrop() {
+    if ($dragged !== null) {
+      const id = $dragged.id;
+      const src = $dragged.src;
+      console.log("drop");
+      $dropTarget = "dropzone";
+      removeFirstById($dragged.id);
+      $components.push({ id, src });
+      $components = $components;
+      console.log(tier);
+    }
+  }
+
   const removeFirstById = (idToRemove: string) => {
     components.update((list) => {
       const indexToRemove = list.findIndex((item) => item.id === idToRemove);
@@ -39,15 +65,7 @@
     e.preventDefault();
   }}
   on:drop={() => {
-    if ($dragged !== null) {
-      const id = $dragged.id;
-      const src = $dragged.src;
-      console.log("drop");
-      $dropTarget = "dropzone";
-      removeFirstById($dragged.id);
-      $components.push({ id, src });
-      $components = $components;
-    }
+    handleDrop();
   }}
   class="row"
   style="--tier: '{tier}'; --color: {color}"
@@ -59,17 +77,8 @@
       in:receive={{ key: item.id }}
       out:send={{ key: item.id }}
       draggable="true"
-      on:dragstart={() => {
-        $dropTarget = "";
-        $dragged = { id: item.id, src: item.src };
-      }}
-      on:dragend={() => {
-        if ($dropTarget === "dropzone") {
-          if ($dragged && !$dropSame) {
-            removeFirstById($dragged.id);
-          }
-        }
-      }}
+      on:dragstart={() => handleDragStart(item)}
+      on:dragend={() => handleDragEnd()}
     >
       <EnergyImage src={item.src} id={item.id} />
     </div>
@@ -78,24 +87,34 @@
 
 <style lang="scss">
   .row {
-    flex: 1;
     position: relative;
     display: flex;
     align-items: center;
-    gap: var(--size-fluid-2);
+    gap: var(--size-fluid-1);
     border: thin solid var(--surface-3);
     height: 100%;
-    width: 100%;
+    max-width: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-gutter: stable;
     padding: 0;
 
     .imgContainer {
-      padding: 0.1rem var(--size-fluid-1);
+      padding: 0.58rem var(--size-fluid-1);
       display: flex;
-
       width: fit-content;
-      min-width: 120px;
+      min-width: fit-content;
+      height: 100%;
     }
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 0px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #666;
   }
 
   .row::before {
@@ -113,6 +132,7 @@
     bottom: 0;
     left: 0;
     aspect-ratio: var(--ratio-square);
+    max-width: 29%;
     background: var(--color);
   }
 </style>
