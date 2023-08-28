@@ -54,7 +54,7 @@
   <div class="container">
     <div class="top">
       <h2 class="lg-only">Energy Drink Tierlist</h2>
-      <h2>Gedronken: {counter}</h2>
+      <h2>Gedronken: {counter > 10 ? `${counter} - RIP` : counter}</h2>
     </div>
 
     <div class="table">
@@ -175,6 +175,7 @@
     color: var(--text-1);
     @media only screen and (max-width: 800px) {
       font-size: var(--size-7);
+      white-space: nowrap;
     }
   }
   .lg-only {

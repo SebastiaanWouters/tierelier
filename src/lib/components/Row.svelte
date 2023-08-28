@@ -4,9 +4,7 @@
   import EnergyImage from "./EnergyImage.svelte";
   import { persisted } from "svelte-local-storage-store";
   import { flip } from "svelte/animate";
-  import { fade } from "svelte/transition";
   import { crossfade } from "svelte/transition";
-  import { writable } from "svelte/store";
   const [send, receive] = crossfade({});
 
   export let tier: string;
