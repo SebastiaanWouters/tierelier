@@ -16,23 +16,44 @@
   let draggedItem: HTMLElement | null | EventTarget = null;
 
   const components = persisted<{ src: string; id: string }[]>("remaining", [
-    { id: "monster", src: "/monster.png" },
-    { id: "nalu", src: "/nalu.png" },
-    { id: "golden", src: "/golden.png" },
-    { id: "rodeo", src: "/rodeo.png" },
-    { id: "prime", src: "/prime.png" },
-    { id: "redbull", src: "/redbull.png" },
-    { id: "psychik", src: "/psychik.png" },
-    { id: "nalu_orange", src: "/nalu_orange.png" },
-    { id: "monster_white", src: "/monster_white.png" },
-    { id: "monster_pipeline", src: "/monster_pipeline.png" },
-    { id: "redbull_white", src: "/redbull_white.png" },
-    { id: "redbull_white_jpg", src: "/redbull_white_jpg.jpg" },
-    { id: "redbull_summer_jpg", src: "/redbull_summer_jpg.jpg" },
-    { id: "redbull_red_jpg", src: "/redbull_red_jpg.jpg" },
+    { id: "boni", src: "/boni_up-min.jpg" },
+    { id: "delhaize", src: "/delhaize-min.jpg" },
+    { id: "energy_sugar", src: "/energy_drink_sugar-min.jpg" },
+    { id: "energy", src: "/energy_drink-min.jpg" },
+    { id: "hell", src: "/hell-min.jpg" },
+    { id: "king", src: "/king-min.jpg" },
+    { id: "monster_aussie", src: "/monster_aussie_lemonade-min.jpg" },
+    { id: "monster_hamilton", src: "/monster_hamilton-min.jpg" },
+    { id: "monster_mango_loco", src: "/monster_mango_loco-min.jpg" },
+    { id: "monster_pacific_punch", src: "/monster_pacific_punch-min.jpg" },
+    { id: "monster_pipeline_punch", src: "/monster_pipeline_punch-min.jpg" },
+    { id: "monster_ultra", src: "/monster_ultra-min.jpg" },
+    { id: "monster", src: "/monster-min.jpg" },
+    { id: "nalu_botanical", src: "/nalu_botanical-min.jpg" },
+    { id: "nalu_frost", src: "/nalu_frost-min.jpg" },
+    { id: "nalu_melon_splash", src: "/nalu_melon_splash-min.jpg" },
+    { id: "nalu_tropical", src: "/nalu_tropical-min.jpg" },
+    { id: "nalu", src: "/nalu-min.jpg" },
+    { id: "nightwatch", src: "/nightwatch-min.jpg" },
+    { id: "nitro", src: "/nitro-min.jpg" },
+    { id: "npva", src: "/npva-min.jpg" },
+    { id: "nocco_mango", src: "/nocco_mango-min.jpg" },
+    { id: "nocco", src: "/nocco-min.jpg" },
+    { id: "redbull_green", src: "/redbull_green-min.jpg" },
+    { id: "rebdull_red", src: "/redbull_red-min.jpg" },
+    { id: "redbull_summer", src: "/redbull_summer-min.jpg" },
+    { id: "redbull_white", src: "/redbull_white-min.jpg" },
+    { id: "rockstar_no_sugar", src: "/rockstar_no_sugar-min.jpg" },
+    { id: "rockstar_tropical", src: "rockstar_tropical-min.jpg" },
+    { id: "rockstar", src: "/rockstar-min.jpg" },
+    { id: "rodeo", src: "/rodeo-min.jpg" },
+    { id: "tao_organic", src: "/tao_organic-min.jpg" },
+    { id: "tao", src: "/tao-min.jpg" },
+    { id: "tenzing_raspberry", src: "/tenzing_raspberry-min.jpg" },
+    { id: "tenzing", src: "/tenzing-min.jpg" },
   ]);
 
-  $: counter = 14 - $components.length;
+  $: counter = 35 - $components.length;
 
   const removeFirstById = (idToRemove: string) => {
     components.update((list) => {
@@ -149,7 +170,7 @@
     flex-shrink: 0;
     height: 100%;
     width: 100%;
-    padding: var(--size-fluid-5) var(--size-fluid-2);
+    padding: var(--size-fluid-4) var(--size-fluid-2);
     justify-items: center;
     align-content: start;
     overflow-y: auto;

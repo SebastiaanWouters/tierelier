@@ -11,13 +11,15 @@
 
 <style>
   img {
+    align-self: center;
     object-fit: cover;
     display: block;
-    max-block-size: 13.3vh;
-    min-height: 100%;
+    max-block-size: 13.4vh;
+
     transition: transform 300ms var(--ease-spring-4);
   }
   img:hover {
+    min-height: auto;
     filter: drop-shadow(0px 0px 6px var(--surface-3));
     transform: scale(1.1);
   }

@@ -88,11 +88,11 @@
     position: relative;
     display: flex;
     align-items: center;
-    gap: var(--size-fluid-1);
+    gap: 0rem;
     border: thin solid var(--surface-3);
     height: 100%;
     max-width: 100%;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: hidden;
     scrollbar-gutter: stable;
     padding: 0;
