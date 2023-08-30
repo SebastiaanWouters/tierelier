@@ -40,9 +40,10 @@
     { id: "nocco_mango", src: "/nocco_mango-min.jpg" },
     { id: "nocco", src: "/nocco-min.jpg" },
     { id: "redbull_green", src: "/redbull_green-min.jpg" },
-    { id: "rebdull_red", src: "/redbull_red-min.jpg" },
+    { id: "redbull_red", src: "/redbull_red-min.jpg" },
     { id: "redbull_summer", src: "/redbull_summer-min.jpg" },
     { id: "redbull_white", src: "/redbull_white-min.jpg" },
+    { id: "redbull-min", src: "/redbull-min.jpg" },
     { id: "rockstar_no_sugar", src: "/rockstar_no_sugar-min.jpg" },
     { id: "rockstar_tropical", src: "rockstar_tropical-min.jpg" },
     { id: "rockstar", src: "/rockstar-min.jpg" },
@@ -53,7 +54,11 @@
     { id: "tenzing", src: "/tenzing-min.jpg" },
   ]);
 
-  $: counter = 35 - $components.length;
+  let searchTerm = "";
+
+  $: filtered = $components.filter((item) => item.id.includes(searchTerm));
+
+  $: counter = 36 - $components.length;
 
   const removeFirstById = (idToRemove: string) => {
     components.update((list) => {
@@ -93,6 +98,7 @@
     }}
     on:drop={() => {
       if ($dragged !== null) {
+        searchTerm = "";
         const id = $dragged.id;
         const src = $dragged.src;
         $dropTarget = "dropzone";
@@ -104,7 +110,8 @@
     }}
     class="column"
   >
-    {#each $components as item (item.id)}
+    <input placeholder="zoeken..." bind:value={searchTerm} />
+    {#each filtered as item (item.id)}
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div
         class="imgWrapper grab"
@@ -136,10 +143,24 @@
     display: grid;
     grid-template-columns: minmax(0, 7fr) min(2fr);
     height: 100vh;
+
     max-width: 100vw;
     width: 100vw;
   }
+  input {
+    grid-column: 1/4;
+    width: 100%;
+    margin: 0.6rem ar(--size-fluid-3);
+    padding-block: var(--size-2);
+    @media only screen and (max-width: 1600px) {
+      grid-column: 1/3;
+    }
+    @media only screen and (max-width: 1200px) {
+      display: none;
+    }
+  }
   .table {
+    max-height: 100%;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -167,10 +188,8 @@
     flex-shrink: 0;
   }
   .column {
-    flex-shrink: 0;
-    height: 100%;
     width: 100%;
-    padding: var(--size-fluid-4) var(--size-fluid-2);
+    padding: var(--size-fluid-3) var(--size-fluid-2);
     justify-items: center;
     align-content: start;
     overflow-y: auto;
