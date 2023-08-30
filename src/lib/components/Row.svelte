@@ -98,7 +98,7 @@
     padding: 0;
 
     .imgContainer {
-      padding: 0.58rem var(--size-fluid-1);
+      padding: 0rem 0.4vmax;
       display: flex;
       width: fit-content;
       min-width: fit-content;
@@ -132,5 +132,6 @@
     aspect-ratio: var(--ratio-square);
     max-width: 29%;
     background: var(--color);
+    margin-right: 0.3rem;
   }
 </style>
