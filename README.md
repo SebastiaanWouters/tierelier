@@ -1,69 +1,18 @@
-# Tier List Maker
+# Vue 3 + TypeScript + Vite
 
-## Description
+This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-This project is a highly interactive and customizable tier list maker built using [Vite](https://vitejs.dev/) and [Svelte](https://svelte.dev/). Create your own tier lists with a smooth and intuitive drag-and-drop interface.
+## Recommended IDE Setup
 
-## Table of Contents
+- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-1. [Features](#features)
-2. [Requirements](#requirements)
-3. [Installation](#installation)
-4. [Usage](#usage)
-5. [Project Structure](#project-structure)
-6. [Components](#components)
-7. [Styling](#styling)
+## Type Support For `.vue` Imports in TS
 
-## Features
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
 
-- **Drag and Drop**: Easily categorize items with drag and drop.
-- **Multiple Tiers**: Comes with multiple tier categories that you can customize.
-- **Custom Colors**: Set custom colors for each tier.
-- **Responsive Design**: The interface scales well for different screen sizes.
+If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
-## Requirements
-
-- Node.js >= 14.x
-- npm >= 6.x
-
-## Installation
-
-Clone the repository and install dependencies.
-
-```bash
-git clone https://github.com/SebastiaanWouters/tierelier.git
-cd tierelier
-npm install
-```
-
-Run the project locally.
-
-```bash
-npm run dev
-```
-
-Navigate to `http://localhost:5173` in your browser.
-
-## Usage
-
-Simply drag and drop items into your desired tier categories. Items can be moved between tiers and removed.
-
-## Project Structure
-
-The project's main folders and files are organized as follows:
-
-- `src`: Source code directory
-  - `lib`: Utility and helper functions
-    - `components`: Svelte components like `Row.svelte`
-  - `App.svelte`: Main application component
-- `package.json`: Lists project dependencies
-- `vite.config.js`: Vite configuration file
-
-## Components
-
-- **Row**: A single row in the tier list. Accepts `tier` and `color` as props.
-- **App**: Main application component, initializes the tier list and draggable items.
-
-## Styling
-
-This project utilizes SCSS for styling. The design is mobile-responsive and adapts well to various screen sizes.
+1. Disable the built-in TypeScript Extension
+   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
