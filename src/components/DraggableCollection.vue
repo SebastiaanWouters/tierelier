@@ -1,5 +1,5 @@
 <template>
-    <img :draggable="true" @dragstart="initDrag" :src='props.src' class=""/>
+    <img :key="props.id" :draggable="true" @dragstart="initDrag" :src='props.src' class=""/>
 </template>
 
 <script setup lang="ts">
@@ -22,8 +22,6 @@
 <style scoped>
     img {
         width: 100%;
-        aspect-ratio: 4/5;
         background: green;
-        
     }
 </style>

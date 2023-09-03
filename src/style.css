@@ -4,6 +4,23 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: 'Monster', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@font-face {
+  font-family: 'Monster';
+  src: url('./assets/Green_Energy.ttf') format('truetype');
+}
+
+:root {
+  --border-color: #999;
+  --red: #bf616a;
+  --orange: #d08770;
+  --yellow: #ebcb8b;
+  --green: #a3be8c;
+  --purple: #b48ead;
+
+  
 }
 
 main, html, body, app {
@@ -11,5 +28,6 @@ main, html, body, app {
   max-height: 100vh;
   min-width: 100vw;
   width: 100vw;
-  background: red;
+  background: #111111;
+  
 }

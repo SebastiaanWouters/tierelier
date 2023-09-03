@@ -12,7 +12,7 @@
     const store = useTierlistStore();
 
     function handleDrop() {
-        store.move(props.cat)
+        store.moveToCategory(props.cat)
     }
 
     function handleEnter(e: DragEvent) {
@@ -24,20 +24,22 @@
 <style scoped>
     .row {
         width: 100%;
-        background: pink;
-        border: thin solid blue;
+        border: thin solid var(--border-color);
         flex: 1;
         overflow: hidden;
         display: flex;
         gap: 1rem;
+        position: relative;
     }
-
     
 
     .first {
         aspect-ratio: 1/1;
+        max-width: 15vw;
         height: 100%;
-        background: brown;
+        color: #fff;
+        font-size: clamp(1.3rem, 1.4rem + 0.56vw, 2.4rem);
+        background: var(--background);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -46,8 +48,7 @@
     .row-content {
         display: flex;
         gap: 1rem;
-        overflow: auto;
-        background: wheat;
-        min-width: 30rem;
+        overflow: auto;  
+        min-width: 80%;
     }
 </style>

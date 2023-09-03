@@ -1,15 +1,16 @@
 <template>
-    <div class="main">
+    <div class="main" @dragenter.prevent @dragover.prevent @drop="handleDrop">
         <div class="search">
-            
+            <input placeholder="zoeken..." type="text" v-model="searchTerm">
         </div>
-        <div @dragenter.prevent @dragover.prevent @drop="handleDrop" class="items" >
-            <Draggable v-for="item in store.collection"  :id="item.id" :src="item.src"/>
-        </div>
+        <TransitionGroup name="list" tag="div" class="items" >
+            <Draggable :key="item.id" v-for="item in filtered" :id="item.id" :src="item.src"/>
+        </TransitionGroup>
     </div>
 </template>
 
 <script setup lang="ts">
+    import { computed, ref } from 'vue';
     import { useTierlistStore } from '../stores/store'
     import Draggable from './DraggableCollection.vue';
 
@@ -18,22 +19,36 @@
     function handleDrop() {
         store.moveToCollection()
     }
+
+    const searchTerm = ref('');
+
+    const filtered = computed(() => store.collection.filter(item => item.id.includes(searchTerm.value)))
 </script>
 
 <style lang="scss" scoped>
-    main {
+    .main {
         display: flex;
         flex-direction: column;
-        
-        gap: 2vh;
+        gap: 1vh;
+        height: 100%;
+        padding-inline: 1rem;
 
         .search {
-            height: max(50px, 10vh);
+            height: max(50px, 4vh);
             width: 100%;
-            padding: 1rem;
-            background: purple;
+            
             @media only screen and (max-width: 1200px) {
                 display: none;
+            }
+
+            input {
+                padding: 0.5rem 0.5rem;
+                font-size: 1.2rem;
+                width: 100%;
+                background: #ddd;
+                outline: none;
+                border: thin solid var(--border-color);
+                
             }
 
         }
@@ -45,22 +60,33 @@
         .items {
             display: grid;
             grid-template-columns: 1fr 1fr;
+            position: relative;
+            overflow-x: hidden;
             @media only screen and (max-width: 1200px) {
                 grid-template-columns: 1fr;
             }
             gap: 1rem;
-            background: lime;
-            min-height: 60vh;
-            //flex-grow: 1;
-            overflow-y: scroll;
-            max-height: 80vh;
-            position: relative;
+            
+            overflow-y: auto;
 
-            .item {
-                width: 100%;
-                aspect-ratio: 4/5;
-                position: relative;
-            }
         }
+    }
+
+    .list-move, /* apply transition to moving elements */
+    .list-enter-active,
+    .list-leave-active {
+    transition: all 0.5s ease, opacity 0s ease;
+    }
+
+    
+    .list-leave-to {
+        opacity: 0
+    
+    }
+
+    /* ensure leaving items are taken out of layout flow so that moving
+    animations can be calculated correctly. */
+    .list-leave-active {
+    position: absolute;
     }
 </style>

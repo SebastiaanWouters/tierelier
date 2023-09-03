@@ -11,11 +11,12 @@ export const useTierlistStore = defineStore('tierlist', () => {
   const C = useLocalStorage<{ id: string, src: string}[]>('row3', [])
   const D = useLocalStorage<{ id: string, src: string}[]>('row4', [])
     
-  const collection = useLocalStorage<{ id: string, src: string}[]>('collection', [{ id: 'monster', src: '/monster-min.jpg'}, { id: 'nalu', src: '/nalu-min.jpg'}])
+  const collection = useLocalStorage<{ id: string, src: string}[]>('collection', [{ id: 'monster', src: '/monster-min.jpg'}, { id: 'nalu', src: '/nalu-min.jpg'}, { id: 'redbull', src: '/redbull-min.jpg'}])
 
 
-  function move(dest: string) {
+  function moveToCategory(dest: string) {
     if (dragged.value) {
+      
       if (dragged.value.origin === "collection") {
         collection.value = collection.value.filter(item => item.id !== dragged.value?.id)
       }
@@ -37,9 +38,7 @@ export const useTierlistStore = defineStore('tierlist', () => {
         }
       switch (dest) {
         case "goat":
-         
-            GOAT.value.push({ id: dragged.value.id, src: dragged.value.src })
-          
+          GOAT.value.push({ id: dragged.value.id, src: dragged.value.src })
           break;
         case 'a': 
           A.value.push({ id: dragged.value.id, src: dragged.value.src })
@@ -54,11 +53,11 @@ export const useTierlistStore = defineStore('tierlist', () => {
           D.value.push({ id: dragged.value.id, src: dragged.value.src })
       }
     }
+    dragged.value = null
   }
 
   function moveToCollection() {
-      if (dragged.value && dragged.value.origin !== "collection") {
-        collection.value.push({ id: dragged.value.id, src: dragged.value.src })
+      if (dragged.value) {
         switch (dragged.value.origin) {
           case "goat":
               GOAT.value = GOAT.value.filter(item => item.id !== dragged.value?.id)
@@ -74,8 +73,15 @@ export const useTierlistStore = defineStore('tierlist', () => {
               break;
           case 'd':
               D.value = D.value.filter(item => item.id !== dragged.value?.id)
+              break;
+          case 'collection':
+            collection.value = collection.value.filter(item => item.id !== dragged.value?.id)
         }
+        
+        collection.value.push({ id: dragged.value.id, src: dragged.value.src })
+     
       }
+      dragged.value = null
   }
-  return { GOAT, A, B, C, D, collection, dragged, move, moveToCollection }
+  return { GOAT, A, B, C, D, collection, dragged, moveToCategory, moveToCollection }
 })
