@@ -3,23 +3,21 @@
         <div class="search">
             
         </div>
-        <div class="items">
-            <img draggable class="item" src="/monster-min.jpg"/>
-            <div class="w-full h-full bg-pink-400"></div>
-            
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div> 
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
+        <div @dragenter.prevent @dragover.prevent @drop="handleDrop" class="items" >
+            <Draggable v-for="item in store.collection"  :id="item.id" :src="item.src"/>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-    import Drink from './Drink.vue'
+    import { useTierlistStore } from '../stores/store'
+    import Draggable from './DraggableCollection.vue';
+
+    const store = useTierlistStore()
+
+    function handleDrop() {
+        store.moveToCollection()
+    }
 </script>
 
 <style lang="scss" scoped>
@@ -40,6 +38,10 @@
 
         }
 
+        [draggable] {
+            cursor: grab;
+        }
+
         .items {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -47,7 +49,8 @@
                 grid-template-columns: 1fr;
             }
             gap: 1rem;
-            background: brown;
+            background: lime;
+            min-height: 60vh;
             //flex-grow: 1;
             overflow-y: scroll;
             max-height: 80vh;
