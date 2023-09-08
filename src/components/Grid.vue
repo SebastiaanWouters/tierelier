@@ -49,28 +49,13 @@
         gap: 1rem;
         flex-direction: column;
 
-        .column {
-            width: 100%;
-            
-            border: thin solid blue;
-            flex: 1;
-            position: relative;
-            display: flex;
-            gap: 2rem;
-
-            .item {
-                width: auto;
-                height: 100%;
-                background: green;
-            }
-          
-        }
+       
     }
 
     .list-move, /* apply transition to moving elements */
     .list-enter-active,
     .list-leave-active {
-    transition: all 0.5s ease, opacity 0.3s ease;
+    transition: all 0.5s ease, opacity 0s ease;
     }
 
     

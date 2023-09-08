@@ -13,7 +13,7 @@
 
     const store = useTierlistStore();
 
-    function initDrag() {
+    function initDrag(e: DragEvent) {
         console.log("starting drag")
         store.dragged = { id: props.id, src: props.src, origin: props.origin }
     }
@@ -25,5 +25,10 @@
         aspect-ratio: 4/5;
         background: green;
         cursor: grab;
+        transition: transform 0.2s;
     }
+    img:hover {
+            transform: scale(1.1);
+            transition: transform 0.2s;
+        }
 </style>

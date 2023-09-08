@@ -9,7 +9,7 @@
 
 @font-face {
   font-family: 'Monster';
-  src: url('./assets/Green_Energy.ttf') format('truetype');
+  src: url('./assets/green-energy.ttf') format('truetype');
 }
 
 :root {
@@ -28,6 +28,5 @@ main, html, body, app {
   max-height: 100vh;
   min-width: 100vw;
   width: 100vw;
-  background: #111111;
-  
+  background: #060606;
 }

@@ -23,5 +23,10 @@
     img {
         width: 100%;
         background: green;
+        transition: transform 0.2s;
     }
+    img:hover {
+            transform: scale(1.04);
+            transition: transform 0.2s;
+        }
 </style>

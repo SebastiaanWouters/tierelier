@@ -1,5 +1,5 @@
 <template>
-    <div class="row"><div class="first uppercase">{{ props.cat }}</div><div @dragenter.prevent="handleEnter" @dragover.prevent @drop="handleDrop" class="row-content"><slot></slot></div></div>
+    <div class="row"><div class="first uppercase">{{ props.cat === "d" ? 'Glenn Leys' : props.cat }}</div><div @dragenter.prevent="handleEnter" @dragover.prevent @drop="handleDrop" class="row-content"><slot></slot></div></div>
 </template>
 
 <script setup lang="ts">
@@ -40,15 +40,16 @@
         color: #fff;
         font-size: clamp(1.3rem, 1.4rem + 0.56vw, 2.4rem);
         background: var(--background);
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        display: grid;
+        place-items: center;
+        text-align: center;
     }
 
     .row-content {
         display: flex;
         gap: 1rem;
-        overflow: auto;  
+        overflow-y: hidden;
+        overflow-x: auto;  
         min-width: 80%;
     }
 </style>
