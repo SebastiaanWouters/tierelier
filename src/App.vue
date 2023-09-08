@@ -23,7 +23,7 @@ onMounted(() => {
     setTimeout(() => {
       modalWelcome.value.showModal()
       cookies.set('visited', true)
-    }, 500)
+    }, 1100)
     
   }
  
@@ -85,7 +85,7 @@ function handleCloseWelcome() {
 </main>
  <main class="small text-center" v-else>
   <img class="w-32" src="/logo.png" />
-  <p>Jow Thews  <br><br> kom terug op desktop<br> bro <br><span style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">monsterislife.be</span><br><br>Nieuwe Upload PLS</p>
+  <p>Jow Thews  <br><br> kom terug op desktop <br><span style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">monsterislife.be</span><br><br>Nieuwe Upload PLS</p>
  </main>
 </template>
 
