@@ -13,7 +13,7 @@
 
     const store = useTierlistStore();
 
-    function initDrag(e: DragEvent) {
+    function initDrag() {
         console.log("starting drag")
         store.dragged = { id: props.id, src: props.src, origin: props.origin }
     }

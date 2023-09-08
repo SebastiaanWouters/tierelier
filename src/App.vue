@@ -84,7 +84,7 @@ function handleCloseWelcome() {
   <dialog ref="modalWelcome" id="modal"><div class="modal-content"><button @click="handleCloseWelcome"><iconify-icon icon="line-md:close" style="color: #B3E116;"  rotate="270deg" flip="horizontal,vertical"></iconify-icon></button><p style="font-size: 2.6rem;">Laat het smaken legend</p><img class="w-96" src="https://media3.giphy.com/media/l0HlBAAkI1I5zKzV6/giphy.gif" /></div></dialog>
 </main>
  <main class="small text-center" v-else>
-  <img class="w-32" src="logo.png" />
+  <img class="w-32" src="/logo.png" />
   <p>Jow Thews  <br><br> kom terug op desktop<br> bro <br><span style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">monsterislife.be</span><br><br>Nieuwe Upload PLS</p>
  </main>
 </template>

@@ -13,6 +13,7 @@
     const store = useTierlistStore();
 
     function initDrag(e: DragEvent) {
+        if (!e.dataTransfer?.effectAllowed) return;
         e.dataTransfer.effectAllowed = "copyMove";
         console.log("starting drag")
         store.dragged = { id: props.id, src: props.src, origin: 'collection'}
